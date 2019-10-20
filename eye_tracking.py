@@ -145,13 +145,13 @@ def main():
         face_frame = detect_faces(frame, face_cascade)
         if face_frame is not None:
             eyes = detect_eyes(face_frame, eye_cascade)
-            # for eye in eyes:
-            #     if eye is not None:
-            #         # threshold = r = cv2.getTrackbarPos('threshold', 'image')
-            #         threshold = 79
-            #         eye = cut_eyebrows(eye)
-            #         keypoints = blob_process(eye, threshold, detector)
-            #         # eye = cv2.drawKeypoints(eye, keypoints, eye, (0, 0, 255), cv2.DRAW_MATCHES_FLAGS_DRAW_RICH_KEYPOINTS)
+            for eye in eyes:
+                if eye is not None:
+                    # threshold = r = cv2.getTrackbarPos('threshold', 'image')
+                    threshold = 79
+                    eye = cut_eyebrows(eye)
+                    keypoints = blob_process(eye, threshold, detector)
+                    # eye = cv2.drawKeypoints(eye, keypoints, eye, (0, 0, 255), cv2.DRAW_MATCHES_FLAGS_DRAW_RICH_KEYPOINTS)
         cv2.imshow('image', frame)
         if cv2.waitKey(1) & 0xFF == ord('q'):
             break

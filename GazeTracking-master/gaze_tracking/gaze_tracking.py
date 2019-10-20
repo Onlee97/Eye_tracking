@@ -84,7 +84,9 @@ class GazeTracking(object):
         if self.pupils_located:
             pupil_left = self.eye_left.pupil.x / (self.eye_left.center[0] * 2 - 10)
             pupil_right = self.eye_right.pupil.x / (self.eye_right.center[0] * 2 - 10)
-            return (pupil_left + pupil_right) / 2
+            h_ratio = (pupil_left + pupil_right) / 2
+            print("Horizontal Ratio", h_ratio)
+            return h_ratio 
 
     def vertical_ratio(self):
         """Returns a number between 0.0 and 1.0 that indicates the
@@ -94,7 +96,9 @@ class GazeTracking(object):
         if self.pupils_located:
             pupil_left = self.eye_left.pupil.y / (self.eye_left.center[1] * 2 - 10)
             pupil_right = self.eye_right.pupil.y / (self.eye_right.center[1] * 2 - 10)
-            return (pupil_left + pupil_right) / 2
+            v_ratio = (pupil_left + pupil_right) / 2
+            print("Vertical Ratio", v_ratio)
+            return v_ratio
 
     def is_right(self):
         """Returns true if the user is looking to the right"""
@@ -116,6 +120,12 @@ class GazeTracking(object):
         if self.pupils_located:
             blinking_ratio = (self.eye_left.blinking + self.eye_right.blinking) / 2
             return blinking_ratio > 3.8
+
+    def position(self):
+        if self.pupils_located:
+            return self.horizontal_ratio(), self.vertical_ratio()
+        else:
+            return -1, -1
 
     def annotated_frame(self):
         """Returns the main frame with pupils highlighted"""
