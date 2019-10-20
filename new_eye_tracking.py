@@ -117,7 +117,7 @@ def headpose(img, image_points):
 	 
 	 
 	(nose_end_point2D, jacobian) = cv2.projectPoints(np.array([(0.0, 0.0, 1000.0)]), rotation_vector, translation_vector, camera_matrix, dist_coeffs)
-	 
+	print(nose_end_point2D)
 	for p in image_points:
 		cv2.circle(img, (int(p[0]), int(p[1])), 3, (0,0,255), -1)
 	 
