@@ -7,6 +7,7 @@ import dlib
 from math import hypot
 import pyautogui as pg
 
+import time
 
 def midpoint(p1 ,p2):
 	return int((p1.x + p2.x)/2), int((p1.y + p2.y)/2)
@@ -130,10 +131,10 @@ def headpose(img, image_points):
 		cv2.circle(img, (int(p[0]), int(p[1])), 3, (255,255,255), -1)
 	 
 	 
-	p1 = ( int(image_points[0][0]), int(image_points[0][1]))
-	p2 = ( int(nose_end_point2D[0][0][0]), int(nose_end_point2D[0][0][1]))
+	# p1 = ( int(image_points[0][0]), int(image_points[0][1]))
+	# p2 = ( int(nose_end_point2D[0][0][0]), int(nose_end_point2D[0][0][1]))
 	 
-	cv2.line(img, p1, p2, (255,255,255), 2)
+	# cv2.line(img, p1, p2, (255,255,255), 2)
 	
 	return nose_end_point2D[0][0], image_points[0]
 
@@ -149,9 +150,9 @@ def control_mouse(endpoint, img):
 	X= int(x_scale*x_size)
 	Y= int(y_scale*y_size)
 	offset = 0
-	X = clamp(X, offset, x_size - offset)
-	Y = clamp(Y, offset, y_size - offset)
-	alpha = 0.5
+	X = clamp(X, 30, x_size - offset)
+	Y = clamp(Y, 350, y_size - offset)
+	alpha = 0.08
 	global filtered_X, filtered_Y
 	filtered_X = lowpass_filter(X, filtered_X, alpha)
 	filtered_Y = lowpass_filter(Y, filtered_Y, alpha)
@@ -172,6 +173,8 @@ pg.FAILSAFE = False
 font = cv2.FONT_HERSHEY_PLAIN
 blinking_ratio = 0
 gaze_ratio = 0
+T = time.time()
+lasttime = 0
 while True:
 	_, frame = cap.read()
 	frame = cv2.flip(frame, 1)
@@ -203,29 +206,25 @@ while True:
 		# gaze_ratio = (gaze_ratio_right_eye + gaze_ratio_left_eye) / 2
 		gaze_ratio = gaze_ratio_left_eye
 
-		print(endpoint, frame.shape, pg.position(), pg.size(), X, Y)
+		print(blinking_ratio)
+		if blinking_ratio > 6 and time.time() - lasttime > 1:
+			cv2.putText(frame, "CLICK", (50, 150), font, 7, (255, 0, 0), 5)
+			pg.click()
+			time.sleep(1)
+			lasttime = time.time()
 
+		if gaze_ratio <= 0.8:
+			cv2.putText(frame, "RIGHT", (50, 100), font, 2, (0, 0, 255), 3)
+			new_frame[:] = (0, 0, 255)
+		elif 1 < gaze_ratio < 2.0:
+			cv2.putText(frame, "CENTER", (50, 100), font, 2, (0, 0, 255), 3)
+		else:
+			new_frame[:] = (255, 0, 0)
+			cv2.putText(frame, "LEFT", (50, 100), font, 2, (0, 0, 255), 3)
 
-
-
-	# frame = cv2.flip(frame, 1)
-
-	if blinking_ratio > 5.7:
-		cv2.putText(frame, "CLICK", (50, 150), font, 7, (255, 0, 0), 5)
-		pg.click()
-
-	if gaze_ratio <= 0.8:
-		cv2.putText(frame, "RIGHT", (50, 100), font, 2, (0, 0, 255), 3)
-		new_frame[:] = (0, 0, 255)
-	elif 1 < gaze_ratio < 2.0:
-		cv2.putText(frame, "CENTER", (50, 100), font, 2, (0, 0, 255), 3)
-	else:
-		new_frame[:] = (255, 0, 0)
-		cv2.putText(frame, "LEFT", (50, 100), font, 2, (0, 0, 255), 3)
-
-
+	frame = cv2.resize(frame, (0,0), fx = 0.5, fy = 0.5)
 	cv2.imshow("Frame", frame)
-	cv2.imshow("New frame", new_frame)
+	# cv2.imshow("New frame", new_frame)
 
 	key = cv2.waitKey(1)
 	if key == 27:
