@@ -1,20 +1,39 @@
 <html>
   <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="author" content="colorlib.com">
-    <link href="https://fonts.googleapis.com/css?family=Poppins" rel="stylesheet" />
-    <link href="css/main.css" rel="stylesheet" />
+      <!--
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+      <meta name="viewport" content="width=device-width, initial-scale=1" />
+      <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+      <meta name="author" content="colorlib.com">
+      -->
 
+      <!--CSS Style-->
+      <link href="https://fonts.googleapis.com/css?family=Poppins" rel="stylesheet" />
+      <link href="css/main.css" rel="stylesheet" />
+      <link href="css/text_box.css" rel="stylesheet" />
+      <link href="css/suggestion_panel.css" rel="stylesheet" />
+      <link href="css/keyboard.css" rel="stylesheet" />
   </head>
+
+
+  <script src="js/extention/choices.js"></script>
+  <script>
+  const choices = new Choices('[data-trigger]',
+  {
+    searchEnabled: false,
+    itemSelectText: '',
+  });
+   </script>
+
+
   <body>
     <div class="s003">
+
       <!--Search engine-->
         <form>
             <div class="inner-form">
                 <div class="input-field second-wrap">
-                    <input id="search" type="text" placeholder="Enter Keywords?"/>
+                    <input id="search" type="text" placeholder="Enter sentence to speak?"/>
                 </div>
                 <div class="input-field third-wrap">
                     <button class="btn-search" type="button">
@@ -28,43 +47,49 @@
             </div>
         </form>
 
+        <!--Suggestion Panel-->
         <div class="suggestion-panel">
             <ul class="suggestion-left">
-                <li class="s"></li>
-                <li class="s"></li>
-                <li class="s"></li>
-                <li class="s"></li>
-                <li class="s"></li>
+                <li class="suggestion-phrase">Hello, my name is ...</li>
+                <li class="suggestion-phrase">Hi, how are you?</li>
+                <li class="suggestion-phrase">I'm doing good</li>
+                <li class="suggestion-phrase">Thank you very much!</li>
+                <li class="suggestion-phrase"></li>
             </ul>
 
             <ul class="suggestion-right">
-                <li class="s"></li>
-                <li class="s"></li>
-                <li class="s"></li>
-                <li class="s"></li>
-                <li class="s"></li>
+                <li class="suggestion-phrase">Excuse me! Can you do me a favor?</li>
+                <li class="suggestion-phrase">I need to go to the restroom</li>
+                <li class="suggestion-phrase">Can you show me the direction to ...?</li>
+                <li class="suggestion-phrase"></li>
+                <li class="suggestion-phrase"></li>
             </ul>
-
-
         </div>
 
+        <!--Keyboard-->
         <div class="container">
             <ul class="keyboard">
-                <li class="symbol"><span class="off">`</span><span class="on">~</span></li>
-                <li class="symbol"><span class="off">1</span><span class="on">!</span></li>
-                <li class="symbol"><span class="off">2</span><span class="on">@</span></li>
-                <li class="symbol"><span class="off">3</span><span class="on">#</span></li>
-                <li class="symbol"><span class="off">4</span><span class="on">$</span></li>
-                <li class="symbol"><span class="off">5</span><span class="on">%</span></li>
-                <li class="symbol"><span class="off">6</span><span class="on">^</span></li>
-                <li class="symbol"><span class="off">7</span><span class="on">&amp;</span></li>
-                <li class="symbol"><span class="off">8</span><span class="on">*</span></li>
-                <li class="symbol"><span class="off">9</span><span class="on">(</span></li>
-                <li class="symbol"><span class="off">0</span><span class="on">)</span></li>
-                <li class="symbol"><span class="off">-</span><span class="on">_</span></li>
-                <li class="symbol"><span class="off">=</span><span class="on">+</span></li>
+                <!--1st Row-->
+                <li class="symbol">  <span class="off">`</span>  <span class="on">~</span></li>
+                <li class="symbol">  <span class="off">1</span>  <span class="on">!</span></li>
+                <li class="symbol">  <span class="off">2</span>  <span class="on">@</span></li>
+                <li class="symbol">  <span class="off">3</span>  <span class="on">#</span></li>
+                <li class="symbol">  <span class="off">4</span>  <span class="on">$</span></li>
+                <li class="symbol">  <span class="off">5</span>  <span class="on">%</span></li>
+                <li class="symbol">  <span class="off">6</span>  <span class="on">^</span></li>
+                <li class="symbol">  <span class="off">7</span>  <span class="on">&amp;</span></li>
+                <li class="symbol">  <span class="off">8</span>  <span class="on">*</span></li>
+                <li class="symbol">  <span class="off">9</span>  <span class="on">(</span></li>
+                <li class="symbol">  <span class="off">0</span>  <span class="on">)</span></li>
+                <li class="symbol">  <span class="off">-</span>  <span class="on">_</span></li>
+                <li class="symbol">  <span class="off">=</span>  <span class="on">+</span></li>
+
                 <li class="delete lastitem">delete</li>
+
+
+                <!--2nd Row-->
                 <li class="tab">tab</li>
+
                 <li class="letter">q</li>
                 <li class="letter">w</li>
                 <li class="letter">e</li>
@@ -75,10 +100,15 @@
                 <li class="letter">i</li>
                 <li class="letter">o</li>
                 <li class="letter">p</li>
+
                 <li class="symbol"><span class="off">[</span><span class="on">{</span></li>
                 <li class="symbol"><span class="off">]</span><span class="on">}</span></li>
                 <li class="symbol lastitem"><span class="off">\</span><span class="on">|</span></li>
+
+
+                <!--3rd Row-->
                 <li class="capslock">caps lock</li>
+
                 <li class="letter">a</li>
                 <li class="letter">s</li>
                 <li class="letter">d</li>
@@ -88,9 +118,13 @@
                 <li class="letter">j</li>
                 <li class="letter">k</li>
                 <li class="letter">l</li>
+
                 <li class="symbol"><span class="off">;</span><span class="on">:</span></li>
                 <li class="symbol"><span class="off">'</span><span class="on">&quot;</span></li>
                 <li class="return lastitem">return</li>
+
+
+                <!--4th Row-->
                 <li class="left-shift">shift</li>
                 <li class="letter">z</li>
                 <li class="letter">x</li>
@@ -103,20 +137,16 @@
                 <li class="symbol"><span class="off">.</span><span class="on">&gt;</span></li>
                 <li class="symbol"><span class="off">/</span><span class="on">?</span></li>
                 <li class="right-shift lastitem">shift</li>
+
+
+                <!--5th Row-->
                 <li class="space lastitem">&nbsp;</li>
+
+
             </ul>
         </div>
     </div>
-
-
-    <script src="js/extention/choices.js"></script>
-    <script>
-      const choices = new Choices('[data-trigger]',
-      {
-        searchEnabled: false,
-        itemSelectText: '',
-      });
-
-    </script>
-  </body> -->
+  </body>
 </html>
+
+

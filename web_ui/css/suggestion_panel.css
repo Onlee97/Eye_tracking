@@ -1,0 +1,44 @@
+/*====== Suggestions Panel ========*/
+
+.s003 .suggestion-panel {
+    margin: 0 auto;
+    width: 100%;
+}
+
+.suggestion-left {
+    float: left;
+    list-style: none;
+}
+
+.suggestion-left li {
+    margin-left: 10px;
+    inline-top: 50px;
+    width: 400px;
+    height: 60px;
+    line-height: 70px;
+    text-align: center;
+    background: #fff;
+    border: 1px solid #f9f9f9;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    margin-bottom: 10px;
+}
+
+.suggestion-right {
+    list-style: none;
+    float: right;
+}
+
+.suggestion-right li {
+    margin-left: 10px;
+    inline-top: 50px;
+    width: 400px;
+    height: 60px;
+    line-height: 70px;
+    text-align: center;
+    background: #fff;
+    border: 1px solid #f9f9f9;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    margin-bottom: 10px;
+}
