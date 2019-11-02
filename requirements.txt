@@ -1,0 +1,10 @@
+# Python UI
+tkinter
+gtts
+pygame
+
+# Eye tracking
+dlib
+pyautogui
+cv2
+numpy
