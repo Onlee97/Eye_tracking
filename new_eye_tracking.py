@@ -5,7 +5,7 @@
 #  *
 # =================================================================================================
 
-import cv2
+
 import dlib
 import numpy as np
 import pyautogui as pg
@@ -16,11 +16,12 @@ import os
 import sys
 from pathlib import Path
 
-#sys.path.remove('/opt/ros/kinetic/lib/python2.7/dist-packages')
+sys.path.remove('/opt/ros/kinetic/lib/python2.7/dist-packages')
+import cv2
 
 # file that contains trained facial shape facial_predictor
 trained_facial_shape_predictor = os.path.join(
-    Path(__file__).parent.absolute(),
+    str(Path(__file__).parent.absolute()),
     'trained_facial_model/shape_predictor_68_face_landmarks.dat'
 )
 
