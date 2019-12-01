@@ -1,26 +1,46 @@
-#include "opencv2/opencv.hpp"
+#include "opencv2/highgui/highgui.hpp"
+#include <opencv2/imgproc/imgproc.hpp>
 #include <iostream>
 
-
-using namespace std;
 using namespace cv;
+using namespace std;
 
-int main(int argc, char** argv)
+int main(int argc, char* argv[])
 {
-    VideoCapture cap;
-    // open the default camera, use something different from 0 otherwise;
-    // Check VideoCapture documentation.
-    if(!cap.open(0))
-        return 0;
-    for(;;)
+    VideoCapture cap(0); // open the video camera no. 0
+
+    if (!cap.isOpened())  // if not success, exit program
     {
-          Mat frame;
-          cap >> frame;
-          if( frame.empty() ) break; // end of video stream
-          imshow("this is you, smile! :)", frame);
-          if( waitKey(10) == 27 ) break; // stop capturing by pressing ESC
+        cout << "Cannot open the video cam" << endl;
+        return -1;
     }
-    // the camera will be closed automatically upon exit
-    // cap.close();
+
+
+    namedWindow("MyVideo",WINDOW_AUTOSIZE);
+
+    while (1)
+    {
+        Mat frame;
+
+        bool bSuccess = cap.read(frame); // read a new frame from video
+
+         if (!bSuccess)
+        {
+             cout << "Cannot read a frame from video stream" << endl;
+             break;
+        }
+
+        Mat grayscale;
+        cvtColor(frame, grayscale, COLOR_RGB2GRAY);
+
+        imshow("MyVideo", grayscale);
+
+        if (waitKey(30) == 27)
+       {
+            cout << "esc key is pressed by user" << endl;
+            break;
+       }
+    }
     return 0;
+
 }
