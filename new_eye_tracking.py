@@ -14,9 +14,9 @@ import sys
 import time
 from pathlib import Path
 
-from .utils import *
+from utils import *
 
-#sys.path.remove('/opt/ros/kinetic/lib/python2.7/dist-packages')
+# sys.path.remove('/opt/ros/kinetic/lib/python2.7/dist-packages')
 
 
 # Define properties
@@ -29,6 +29,8 @@ T = time.time()
 
 
 def main():
+    device = dlib.cuda.get_num_devices()
+
     # Load: file that contains trained facial shape facial_predictor
     trained_facial_shape_predictor = os.path.join(
         Path(__file__).parent.absolute(),
@@ -60,29 +62,20 @@ def main():
         # get all bounding boxes around all the faces that can be found in the frame
         all_faces = detector(gray_frame)
 
-        # handling multiple faces: get the one that closes to the center of the frame
+        # handling multiple faces: get the one that is the closest to the center of the frame
         if len(all_faces) == 1:
             face = all_faces[0]
         else:
-            all_faces_size = {}
-            for index, face in enumerate(all_faces):
-                x, y = face.left(), face.top()
-                x1, y1 = face.right(), face.bottom()
-                face_height = abs(y1 - y)
-                face_width = (x1 - x)
-                all_faces_size[index] = (face_height * face_width)
-            if len(max(all_faces_size)) == 1:
-                face = all_faces[all_faces_size]
-
+            pass
 
         # x, y = face.left(), face.top()
         # x1, y1 = face.right(), face.bottom()
         # cv2.rectangle(frame, (x, y), (x1, y1), (0, 255, 0), 2)
 
-        # get facial landmarks ()
+        # get facial landmarks
         facial_landmarks = facial_predictor(gray_frame, face)
 
-         # Get Image points
+        # Get Image points
         image_points = get_image_points(
             [30, 8, 36, 45, 48, 54],
             facial_landmarks
@@ -117,14 +110,14 @@ def main():
             pg.click()
             time.sleep(1)
             last_time = time.time()
-        #
+        # Gaze to the right
         if gaze_ratio <= 0.8:
             print_text_to_frame(frame, "RIGHT")
             new_frame[:] = (0, 0, 255)
-        #
+        # Pupil in the center
         elif 1 < gaze_ratio < 2.0:
             print_text_to_frame(frame, "CENTER")
-        #
+        # Gaze to the left
         else:
             new_frame[:] = (255, 0, 0)
             print_text_to_frame(frame, "LEFT")
@@ -142,4 +135,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
