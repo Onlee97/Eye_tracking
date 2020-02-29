@@ -21,16 +21,17 @@ def midpoint(p1, p2):
 
 
 def get_blinking_ratio(eye_points, facial_landmarks):
-    """ Get blinking ration from the eyes
+    """ Get blinking ratio from the eyes
 
     :param eye_points:
-    :param facial_landmarks:
+    :param facial_landmarks: Facial landmarks
 
     :return:
     """
+    #
     left_point = (
-        facial_landmarks.part(eye_points[0]).x,
-        facial_landmarks.part(eye_points[0]).y
+        facial_landmarks.part(eye_points[0]).x,  # x-coordinate of the eye point
+        facial_landmarks.part(eye_points[0]).y  # y-coordinate of the eye point
     )
     right_point = (
         facial_landmarks.part(eye_points[3]).x,
@@ -179,7 +180,7 @@ def get_image_points(int_array, facial_landmarks):
 def headpose(img, image_points):
     """
 
-    :param img:
+    :param img: an image/ a frame
     :param image_points:
 
     :return:
@@ -198,14 +199,12 @@ def headpose(img, image_points):
         (0.0, 0.0, 0.0),  # Nose tip
         (0.0, -330.0, -65.0),  # Chin
         (-225.0, 170.0, -135.0),  # Left eye left corner
-        (225.0, 170.0, -135.0),  # Right eye right corne
-        (-150.0, -150.0, -125.0),  # Left Mouth corner
+        (225.0, 170.0, -135.0),  # Right eye right corner
+        (-150.0, -150.0, -125.0),  # Left mouth corner
         (150.0, -150.0, -125.0)  # Right mouth corner
-
     ])
 
     # Camera internals
-
     focal_length = size[1]
     center = (size[1] / 2, size[0] / 2)
     camera_matrix = np.array(
