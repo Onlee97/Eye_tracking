@@ -5,7 +5,7 @@
   *
 ================================================================================"""
 
-import cv2
+
 import dlib
 import numpy as np
 import pyautogui as pg
@@ -15,6 +15,22 @@ import time
 from pathlib import Path
 
 from utils import *
+sys.path.remove('/opt/ros/kinetic/lib/python2.7/dist-packages')
+import cv2
+
+# file that contains trained facial shape facial_predictor
+trained_facial_shape_predictor = os.path.join(
+    str(Path(__file__).parent.absolute()),
+    'trained_facial_model/shape_predictor_68_face_landmarks.dat'
+)
+
+filtered_X = 0
+filtered_Y = 0
+
+cap = cv2.VideoCapture(0)
+
+# Use for detect face, return the retangle the envelop the face
+detector = dlib.get_frontal_face_detector()
 
 # sys.path.remove('/opt/ros/kinetic/lib/python2.7/dist-packages')
 
