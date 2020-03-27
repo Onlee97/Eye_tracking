@@ -6,5 +6,5 @@ pygame
 # Eye tracking
 dlib
 pyautogui
-cv2
+opencv-python
 numpy
